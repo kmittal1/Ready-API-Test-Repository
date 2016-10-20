@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:mockOperation name="logout" interface="ServiceSoapBinding" operation="logout" id="7822142f-4f70-45af-a7e9-d15df6e5e4b8" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="7822142f-4f70-45af-a7e9-d15df6e5e4b8fileName">logout</con:setting></con:settings><con:dispatchPath>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def holder = groovyUtils.getXmlHolder( mockRequest.requestContent )
+
+def sessionid = holder.getNodeValue( "//sessionid" )
+
+// check
+if( !context.hasProperty( sessionid ))
+ return "Invalid Session Id Fault"
+
+// logout
+context.removeProperty( context.getProperty( sessionid ))
+context.removeProperty( sessionid )
+requestContext.sessioninfo = "OK"
+
+return "Ok Response"
+</con:dispatchPath><con:dispatchStyle>SCRIPT</con:dispatchStyle><con:defaultResponse>Ok Response</con:defaultResponse><con:dispatchXPath/><con:routeScript/><con:response name="Ok Response" encoding="UTF-8" httpResponseStatus="200" id="e92b601c-4a89-45b6-a12a-c47079d4f120" dataSource=""><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:logoutResponse>
+ <sessioninfo>${sessioninfo}</sessioninfo>
+ </sam:logoutResponse>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:response name="Invalid Session Id Fault" encoding="UTF-8" httpResponseStatus="200" id="98b0a8e3-d32c-4b88-ac6b-24539f0526f5" dataSource=""><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+ <soapenv:Body>
+ <soapenv:Fault>
+ <faultcode>Client</faultcode>
+ <faultstring>Invalid Session Id</faultstring>
+ </soapenv:Fault>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation>

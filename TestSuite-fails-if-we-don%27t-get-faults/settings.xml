@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testSuite name="TestSuite fails if we don't get faults" id="72c9ec8e-fe32-4848-bebd-303fe1c54534" xmlns:con="http://eviware.com/soapui/config"><con:description>This is a complementary TestSuite that illustrates something important.
+
+Do not only test that your Web Service works under the right conditions, also test that it work under the wrong ones.
+
+One of the strengths of SoapUI is the ability do quickly create a number of destructive tests, that confirms that the your Web Service handles input errors, abuse, input faults etc. correctly.</con:description><con:settings><con:setting id="72c9ec8e-fe32-4848-bebd-303fe1c54534fileName">TestSuite-fails-if-we-don%27t-get-faults</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:properties/><con:reportParameters/></con:testSuite>

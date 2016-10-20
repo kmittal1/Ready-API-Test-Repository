@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Simple Login and Logout and Login Again" searchProperties="true" maxResults="0" id="4a2bfe83-78c8-4ee8-9d6a-e3ec52ccd91b" xmlns:con="http://eviware.com/soapui/config"><con:description>TestCase - Simple Login and Logout
+
+This one is a bit wonky, but has its reasons. What we are testing is that we are able to login again after a logout.
+
+The test will:
+1) login 
+2) logout
+3) login again
+4) logout again 
+
+The last step is there in order for us to be able to run the test continuously.</con:description><con:settings><con:setting id="4a2bfe83-78c8-4ee8-9d6a-e3ec52ccd91bfileName">Simple-Login-and-Logout-and-Login-Again</con:setting></con:settings><con:testStep type="properties" name="Properties - Username and Password" id="465aa81e-9c67-4c28-b7a4-bab5271514af"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>Username</con:name><con:value>Loginn${=String.valueOf(Math.random()).substring( 0, 5 )}</con:value></con:property><con:property><con:name>Password</con:name><con:value>Loginu123</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Test Request - login" id="a3e3f69b-1ac0-4516-b093-119f99511178"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ServiceSoapBinding</con:interface><con:operation>login</con:operation><con:request name="Test Request - login" outgoingWss="" incomingWss="" id="0598ede4-b5fd-4c92-8e6f-54e50bfade3f"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8088/mockServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:login>
+ <username>${Properties - Username and Password#Username}</username>
+ <password>${Properties - Username and Password#Password}</password>
+ </sam:login>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f21620c5-3ae0-4362-a48b-4dd82c19cc89"/><con:assertion type="Schema Compliance" id="190c9d9f-f81c-41c0-9ec5-e5793d2c39ef"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="933410c2-2cf2-427c-919b-dd57ca0168a3"/><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test Request - logout" id="b24399b1-4972-4b7c-b37a-6d02889ef8f3"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ServiceSoapBinding</con:interface><con:operation>logout</con:operation><con:request name="Test Request - logout" outgoingWss="" incomingWss="" id="28143abd-f9e8-407e-8435-734ae90e3d8e"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8088/mockServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:logout>
+ <sessionid>${Test Request - login#Response#//sam:loginResponse/sessionid}</sessionid>
+ </sam:logout>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="2907d4f4-61ad-4a72-8971-c55d709f496b"/><con:assertion type="Schema Compliance" id="0bfae5e7-f56b-4863-a205-eff59d30991a"><con:configuration/></con:assertion><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test Request - login again" id="d2bab197-0d87-475c-b8e4-b9b0bbba47e5"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ServiceSoapBinding</con:interface><con:operation>login</con:operation><con:request name="Test Request - login again" outgoingWss="" incomingWss="" id="013d8c62-131c-459e-9582-22f72f709279"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8088/mockServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:login>
+ <username>${Properties - Username and Password#Username}</username>
+ <password>${Properties - Username and Password#Password}</password>
+ </sam:login>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="19304d61-7ced-4996-8430-eecfc0cb5f13"/><con:assertion type="Schema Compliance" id="40b36669-2669-4586-9e0a-05a42ac5192b"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="989dc0c3-359c-401e-870e-8ff211880e7b"/><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test Request - logout again" id="7207ff12-3b31-420a-8598-795c515462e1"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ServiceSoapBinding</con:interface><con:operation>logout</con:operation><con:request name="Test Request - logout again" outgoingWss="" incomingWss="" id="7196e17e-a00d-4345-91d4-3e202ed24a56"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8088/mockServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:logout>
+ <sessionid>${Test Request - login again#Response#//sam:loginResponse/sessionid}</sessionid>
+ </sam:logout>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="86a1170e-efcd-49a6-b8a3-ca6401553c88"/><con:assertion type="Schema Compliance" id="3f988f0b-1777-4d5e-abd9-fbcf7da2174a"><con:configuration/></con:assertion><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>

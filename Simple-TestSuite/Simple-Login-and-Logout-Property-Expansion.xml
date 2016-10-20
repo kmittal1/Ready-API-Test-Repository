@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" name="Simple Login and Logout Property Expansion" searchProperties="true" maxResults="0" id="b99e440c-c19e-4818-a805-9b130aa66b13" xmlns:con="http://eviware.com/soapui/config"><con:description>TestCase - Simple Login and Logout
+
+This one is easy and a little tighter than "Simple Login and Logout w. Properties Steps"
+
+The test will first login and then it will logout. :-)
+
+We are using a Property Transfer Step to move password and user name from a Properties 
+Step to the Request and a second Property Transfer Step to move the sessionID we got in the login response to the logout request..</con:description><con:settings><con:setting id="b99e440c-c19e-4818-a805-9b130aa66b13fileName">Simple-Login-and-Logout-Property-Expansion</con:setting></con:settings><con:testStep type="properties" name="Properties - Username and Password" id="05da0088-783c-4444-97d1-9486a52935bc"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>Username</con:name><con:value>Loginn${=String.valueOf(Math.random()).substring( 0, 5 )}</con:value></con:property><con:property><con:name>Password</con:name><con:value>Loginu123</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="Test Request - login" id="4b480fd2-584a-4032-8090-3b41bf295807"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ServiceSoapBinding</con:interface><con:operation>login</con:operation><con:request name="Test Request - login" outgoingWss="" incomingWss="" id="37ef55b0-c57f-4b33-a96d-30b03afef447"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8088/mockServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:login>
+ <username>${Properties - Username and Password#Username}</username>
+ <password>${Properties - Username and Password#Password}</password>
+ </sam:login>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="a616fa6e-8e15-41a9-b65c-c13942518227"/><con:assertion type="Schema Compliance" id="42564a82-20fa-421c-a89f-49ed5917f641"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion" id="a7e60daf-3650-4e98-8604-f37f422bdab7"/><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Test Request - logout" id="74f3e7f1-7507-4944-9082-a02863190fdf"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ServiceSoapBinding</con:interface><con:operation>logout</con:operation><con:request name="Test Request - logout" outgoingWss="" incomingWss="" id="d96c05b9-b8fc-440d-99c7-12cd97f45780"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://127.0.0.1:8088/mockServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sam="http://www.soapui.org/sample/">
+ <soapenv:Header/>
+ <soapenv:Body>
+ <sam:logout>
+ <sessionid>${Test Request - login#Response#//sam:loginResponse/sessionid}</sessionid>
+ </sam:logout>
+ </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response" id="f1f2e41d-cb84-4131-8088-b6484bf3073f"/><con:assertion type="Schema Compliance" id="5c8b3d62-2c9e-4c99-b6fd-1e2fc6609efa"><con:configuration/></con:assertion><con:credentials><con:username xsi:nil="true"/><con:password xsi:nil="true"/><con:domain xsi:nil="true"/><con:selectedAuthProfile>No Authorization</con:selectedAuthProfile><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase>
